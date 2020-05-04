@@ -182,6 +182,10 @@ static bool check_loopback(void) {
 #endif
 }
 
+__attribute__((used)) bool loopback_shorted;
+__attribute__((used)) bool valid_app;
+__attribute__((used)) bool just_start_app;
+
 int main(void)
 {
   // SD is already Initialized in case of BOOTLOADER_DFU_OTA_MAGIC
@@ -190,8 +194,13 @@ int main(void)
   // Serial only mode
   // bool serial_only_dfu = (NRF_POWER->GPREGRET == DFU_MAGIC_SERIAL_ONLY_RESET);
 
+  // Ensure we're running the correct SoftDevice
+  if (SD_VERSION_GET(MBR_SIZE) != 7000001) {
+    asm("bkpt"); // SoftDevice version is not 7.0.1
+  }
+
   // Pins are shorted together
-  bool loopback_shorted = check_loopback();
+  loopback_shorted = check_loopback();
 
   // start either serial, uf2 or ble
   bool dfu_start = loopback_shorted || (NRF_POWER->GPREGRET == DFU_MAGIC_UF2_RESET) ||
@@ -227,8 +236,8 @@ int main(void)
   // DFU button pressed
   // dfu_start  = dfu_start || button_pressed(BUTTON_DFU);
 
-  bool const valid_app = bootloader_app_is_valid(DFU_BANK_0_REGION_START);
-  bool const just_start_app = valid_app && !dfu_start && (*dbl_reset_mem) == DFU_DBL_RESET_APP;
+  valid_app = bootloader_app_is_valid(DFU_BANK_0_REGION_START);
+  just_start_app = valid_app && !dfu_start && (*dbl_reset_mem) == DFU_DBL_RESET_APP;
 
   if (!just_start_app && APP_ASKS_FOR_SINGLE_TAP_RESET())
     dfu_start = 1;
