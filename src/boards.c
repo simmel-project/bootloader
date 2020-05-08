@@ -85,6 +85,47 @@ void board_teardown(void)
   {
     nrf_gpio_cfg_default(i);
   }
+  const uint32_t disconnect_pulldown = 0x00000006;
+  NRF_P0->PIN_CNF[26] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[27] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[4] = disconnect_pulldown; // CHG_STAT
+  NRF_P0->PIN_CNF[5] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[6] = disconnect_pulldown; // LED_PWM
+  NRF_P0->PIN_CNF[7] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[8] = disconnect_pulldown; // I2S_LRCK
+  NRF_P1->PIN_CNF[8] = disconnect_pulldown;
+    // pin_P1->PIN_CNF[9] = disconnect_pulldown; // I2S_SDIN
+  NRF_P0->PIN_CNF[11] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[12] = disconnect_pulldown; // I2S_SCK
+  NRF_P0->PIN_CNF[13] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[14] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[15] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[16] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[17] = disconnect_pulldown; // Reset (external pullup)
+    // pin_P0->PIN_CNF[18] = disconnect_pulldown; // Reset (tied to P0.17)
+  NRF_P0->PIN_CNF[20] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[21] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[22] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[24] = disconnect_pulldown; // UART_RX
+  NRF_P1->PIN_CNF[0] = disconnect_pulldown; // UART_TX
+  NRF_P1->PIN_CNF[1] = disconnect_pulldown;
+  NRF_P1->PIN_CNF[2] = disconnect_pulldown;
+    // pin_P1->PIN_CNF[4] = disconnect_pulldown; // SPI_MISO
+    // pin_P1->PIN_CNF[6] = disconnect_pulldown; // SPI_CSN
+  NRF_P1->PIN_CNF[7] = disconnect_pulldown;
+    // pin_P1->PIN_CNF[9] = disconnect_pulldown; // SPI_MOSI
+    // pin_P1->PIN_CNF[10] = disconnect_pulldown; // SPI_SCK
+  NRF_P0->PIN_CNF[25] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[23] = disconnect_pulldown;
+  NRF_P1->PIN_CNF[5] = disconnect_pulldown;
+  NRF_P1->PIN_CNF[3] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[19] = disconnect_pulldown; // US_PWM_N
+  NRF_P0->PIN_CNF[3] = disconnect_pulldown;
+    // pin_P0->PIN_CNF[2] = disconnect_pulldown; // US_PWM
+  NRF_P0->PIN_CNF[28] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[29] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[30] = disconnect_pulldown;
+  NRF_P0->PIN_CNF[31] = disconnect_pulldown;
 }
 
 static uint32_t _systick_count = 0;
